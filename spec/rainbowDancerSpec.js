@@ -3,11 +3,11 @@ describe("rainbowDancer", function() {
   var rainbowDancer;
   var timeBetweenSteps = 100;
   var clock;
-  var color = 'yellow';
+  var colors = ['purple', 'blue', 'cyan', 'green', 'yellow', 'orange', 'red'];
 
   beforeEach(function() {
     clock = sinon.useFakeTimers();
-    rainbowDancer = new RainbowDancer(10, 20, timeBetweenSteps, color);
+    rainbowDancer = new RainbowDancer(10, 20, timeBetweenSteps, colors);
   });
 
   it("should have a jQuery $node object", function(){
