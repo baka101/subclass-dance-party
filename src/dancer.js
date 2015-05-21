@@ -100,14 +100,7 @@ Dancer.prototype.pairUp = function (dancers) {
     if (nearest === null) {
       nearest = this;
     }
-    this.pair = {};
-    this.pair.pointer = nearest;
-    nearest.pair = {};
-    nearest.pair.pointer = this;
-    nearest.pair.left = this.left;
-    nearest.pair.top = this.top;
-    this.pair.left = nearest.left;
-    this.pair.top = nearest.top;
+    this.setPair(nearest);
   }
 };
 
@@ -125,5 +118,14 @@ Dancer.prototype.beYourSelf = function() {
   this.randomStep();
 };
 
-
+Dancer.prototype.setPair = function (pairDancer) {
+    this.pair = {};
+    this.pair.pointer = pairDancer;
+    this.pair.left = pairDancer.left;
+    this.pair.top = pairDancer.top;
+    pairDancer.pair = {};
+    pairDancer.pair.pointer = this;
+    pairDancer.pair.left = this.left;
+    pairDancer.pair.top = this.top;
+}
 

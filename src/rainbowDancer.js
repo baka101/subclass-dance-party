@@ -10,5 +10,5 @@ RainbowDancer.prototype.step = function() {
   Dancer.prototype.step.call(this);
   var index = Math.floor(Math.random() * this.colors.length);
   var newProp = this.colors[index];
-  this.$node.css('border-color', newProp);
+  this.$node.css('background-color', newProp);
 };

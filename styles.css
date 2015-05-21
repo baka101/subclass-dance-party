@@ -23,7 +23,10 @@ body, a:link, a:visited, a:active{
   background-color: #777;
 }
 .dancer{
-  border:10px solid red;
-  border-radius:10px;
+  background-color: red;
+  border-radius: 100%;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
   position:absolute;
 }
