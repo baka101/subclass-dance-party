@@ -1,7 +1,11 @@
 var MovingRainbowDancer = function (top, left, timeBetweenSteps, colors) {
+  var x = Math.random()*2-1;
+  var y = Math.random()*2-1;
+  var z = Math.sqrt(x*x + y*y);
 
-  this.yDirection = Math.floor(Math.random()*2-1);
-  this.xDirection = Math.floor(Math.random()*2-1);
+  this.yDirection = x/z;
+  this.xDirection = y/z;
+
   this.stepSize = 10;
 
   RainbowDancer.call(this, top, left, timeBetweenSteps, colors);
@@ -35,3 +39,8 @@ MovingRainbowDancer.prototype.lineUp = function() {
   Dancer.prototype.lineUp.call(this);
   this.stepSize = 0;
 };
+
+MovingRainbowDancer.prototype.beYourSelf = function() {
+  Dancer.prototype.beYourSelf.call(this);
+  this.stepSize = 10;
+}

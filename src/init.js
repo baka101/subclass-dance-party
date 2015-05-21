@@ -45,5 +45,13 @@ $(document).ready(function(){
       dancer.goToPair();
     });
   });
+
+  $(".spreadOutButton").on("click", function(event) {
+    _.each(dancers, function(dancer) {
+      dancer.beYourSelf();
+    });
+  });
+
+
 });
 

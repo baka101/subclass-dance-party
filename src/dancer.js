@@ -58,7 +58,7 @@ Dancer.prototype.lineUp = function() {
   } else {
     this.left = 0.1*maxX;
   }
-  this.setPosition(this.top, this.left);
+  this.moveToPosition(this.top, this.left);
 };
 
 Dancer.prototype.randomStep = function() {
@@ -120,6 +120,10 @@ Dancer.prototype.goToPair = function() {
   this.moveToPosition(newTop, newLeft);
 };
 
+Dancer.prototype.beYourSelf = function() {
+  this.pair = null;
+  this.randomStep();
+};
 
 
 

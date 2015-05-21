@@ -9,6 +9,6 @@ RainbowDancer.prototype.constructor = RainbowDancer;
 RainbowDancer.prototype.step = function() {
   Dancer.prototype.step.call(this);
   var index = Math.floor(Math.random() * this.colors.length);
-  var newProp = '10px solid ' + this.colors[index];
-  this.$node.css('border', newProp);
+  var newProp = this.colors[index];
+  this.$node.css('border-color', newProp);
 };
