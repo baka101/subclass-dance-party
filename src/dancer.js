@@ -2,7 +2,8 @@
 var Dancer = function(top, left, timeBetweenSteps){
 
   this.timeBetweenSteps = timeBetweenSteps;
-
+  this.top = top;
+  this.left = left;
   // use jQuery to create an HTML <span> tag
   this.$node = $('<span class="dancer"></span>');
 
@@ -29,4 +30,18 @@ Dancer.prototype.setPosition = function(top, left){
     left: left
   };
   this.$node.css(styleSettings);
+};
+
+Dancer.prototype.lineUp = function() {
+  var maxX = window.innerWidth;
+  if (this.left > (maxX/2)) {
+    this.left = maxX - 0.1* maxX;
+  } else {
+    this.left = 0.1*maxX;
+  }
+  this.setPosition(this.top, this.left);
+};
+
+Dancer.prototype.randomStep = function() {
+  this.left = Math.floor(Math.random() * window.innerWidth);
 };

@@ -1,7 +1,5 @@
 var MovingRainbowDancer = function (top, left, timeBetweenSteps, colors) {
 
-  this.top = top;
-  this.left = left;
   this.yDirection = Math.floor(Math.random()*2-1);
   this.xDirection = Math.floor(Math.random()*2-1);
   this.stepSize = 10;
@@ -31,4 +29,9 @@ MovingRainbowDancer.prototype.step = function () {
 
   this.setPosition(this.top, this.left);
 
-}
+};
+
+MovingRainbowDancer.prototype.lineUp = function() {
+  Dancer.prototype.lineUp.call(this);
+  this.stepSize = 0;
+};
