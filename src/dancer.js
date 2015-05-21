@@ -1,10 +1,9 @@
 // Creates and returns a new dancer object that can step
 var Dancer = function(top, left, timeBetweenSteps){
-
+  var context = this;
   this.timeBetweenSteps = timeBetweenSteps;
   // use jQuery to create an HTML <span> tag
   this.$node = $('<span class="dancer"></span>');
-
   this.radius = 10;
 
   this.step();
@@ -13,6 +12,17 @@ var Dancer = function(top, left, timeBetweenSteps){
   // now that we have defined the dancer object, we can start setting up important parts of it by calling the methods we wrote
   // this one sets the position to some random default point within the body
   this.setPosition(top, left);
+
+  this.$node.on('click', function (event) {
+
+    _.each(dancers, function(dancer) {
+      dancer.setPair(context);
+      dancer.goToPair();
+    });
+
+    context.setPair(context);
+
+  });
 
 };
 
@@ -104,12 +114,21 @@ Dancer.prototype.pairUp = function (dancers) {
   }
 };
 
-Dancer.prototype.goToPair = function() {
+Dancer.prototype.joinPair = function() {
   var leftOffset = (this.left > this.pair.left) ? this.radius : -this.radius;
   var topOffset = (this.top > this.pair.top) ? this.radius : -this.radius;
 
   var newLeft = (this.left + this.pair.left)/2 + leftOffset;
   var newTop = (this.top + this.pair.top)/2 + topOffset;
+  this.moveToPosition(newTop, newLeft);
+};
+
+Dancer.prototype.goToPair = function() {
+  var leftOffset = (this.left > this.pair.left) ? this.radius : -this.radius;
+  var topOffset = (this.top > this.pair.top) ? this.radius : -this.radius;
+
+  var newLeft = this.pair.left + leftOffset;
+  var newTop = this.pair.top + topOffset;
   this.moveToPosition(newTop, newLeft);
 };
 
@@ -123,9 +142,11 @@ Dancer.prototype.setPair = function (pairDancer) {
     this.pair.pointer = pairDancer;
     this.pair.left = pairDancer.left;
     this.pair.top = pairDancer.top;
-    pairDancer.pair = {};
-    pairDancer.pair.pointer = this;
-    pairDancer.pair.left = this.left;
-    pairDancer.pair.top = this.top;
+    if (pairDancer !== this) {
+      pairDancer.pair = {};
+      pairDancer.pair.pointer = this;
+      pairDancer.pair.left = this.left;
+      pairDancer.pair.top = this.top;
+    }
 }
 

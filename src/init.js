@@ -42,7 +42,7 @@ $(document).ready(function(){
       dancer.pairUp(allDancers);
     });
     _.each(dancers, function(dancer) {
-      dancer.goToPair();
+      dancer.joinPair();
     });
   });
 
@@ -52,24 +52,24 @@ $(document).ready(function(){
     });
   });
 
-  $("body").on("click", ".dancer", function(event) {
-    console.log('stop mousing me');
+  // $("body").on("click", ".dancer", function(event) {
+  //   console.log('stop mousing me');
 
-    var currentDancer = event.target;
+  //   var currentDancer = event.target;
 
-    var centerDancer = _.find(dancers, function (dancer) {
-      return dancer.$node.get(0) === currentDancer;
-    });
+  //   var centerDancer = _.find(dancers, function (dancer) {
+  //     return dancer.$node.get(0) === currentDancer;
+  //   });
 
-    _.each(dancers, function(dancer) {
-      dancer.setPair(centerDancer);
-    });
+  //   _.each(dancers, function(dancer) {
+  //     dancer.setPair(centerDancer);
+  //   });
 
-    _.each(dancers, function(dancer) {
-      dancer.goToPair();
-    });
+  //   _.each(dancers, function(dancer) {
+  //     dancer.goToPair();
+  //   });
 
-  });
+  // });
 
 });
 
