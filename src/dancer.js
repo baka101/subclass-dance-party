@@ -5,6 +5,8 @@ var Dancer = function(top, left, timeBetweenSteps){
   // use jQuery to create an HTML <span> tag
   this.$node = $('<span class="dancer"></span>');
 
+  this.radius = 10;
+
   this.step();
   this.pair = null;
 
@@ -61,6 +63,8 @@ Dancer.prototype.lineUp = function() {
 
 Dancer.prototype.randomStep = function() {
   this.left = Math.floor(Math.random() * window.innerWidth);
+  this.top = Math.floor(Math.random() * window.innerHeight);
+  this.moveToPosition(this.top, this.left);
 };
 
 Dancer.prototype.findDistance = function (otherDancer) {
@@ -108,8 +112,11 @@ Dancer.prototype.pairUp = function (dancers) {
 };
 
 Dancer.prototype.goToPair = function() {
-  var newLeft = (this.left + this.pair.left)/2;
-  var newTop = (this.top + this.pair.top)/2;
+  var leftOffset = (this.left > this.pair.left) ? this.radius : -this.radius;
+  var topOffset = (this.top > this.pair.top) ? this.radius : -this.radius;
+
+  var newLeft = (this.left + this.pair.left)/2 + leftOffset;
+  var newTop = (this.top + this.pair.top)/2 + topOffset;
   this.moveToPosition(newTop, newLeft);
 };
 
