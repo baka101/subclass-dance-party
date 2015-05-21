@@ -32,21 +32,28 @@ $(document).ready(function(){
   });
 
   $(".lineUpButton").on("click", function(event) {
+    $('.pairUpButton').removeClass('paired');
     for (var i = 0; i < dancers.length; i++) {
       dancers[i].lineUp();
     }
   });
 
   $(".pairUpButton").on("click", function(event) {
-    _.each(dancers, function(dancer, index, allDancers) {
-      dancer.pairUp(allDancers);
-    });
-    _.each(dancers, function(dancer) {
-      dancer.joinPair();
-    });
+    if(!($(this).hasClass('paired'))) {
+      _.each(dancers, function(dancer, index, allDancers) {
+        dancer.pairUp(allDancers);
+      });
+      _.each(dancers, function(dancer) {
+        dancer.joinPair();
+      });
+
+      $(this).addClass('paired');
+    }
+
   });
 
   $(".spreadOutButton").on("click", function(event) {
+    $('.pairUpButton').removeClass('paired');
     _.each(dancers, function(dancer) {
       dancer.beYourSelf();
     });
