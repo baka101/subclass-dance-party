@@ -36,5 +36,14 @@ $(document).ready(function(){
       dancers[i].lineUp();
     }
   });
+
+  $(".pairUpButton").on("click", function(event) {
+    _.each(dancers, function(dancer, index, allDancers) {
+      dancer.pairUp(allDancers);
+    });
+    _.each(dancers, function(dancer) {
+      dancer.goToPair();
+    });
+  });
 });
 

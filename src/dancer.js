@@ -6,6 +6,7 @@ var Dancer = function(top, left, timeBetweenSteps){
   this.$node = $('<span class="dancer"></span>');
 
   this.step();
+  this.pair = null;
 
   // now that we have defined the dancer object, we can start setting up important parts of it by calling the methods we wrote
   // this one sets the position to some random default point within the body
@@ -72,14 +73,14 @@ Dancer.prototype.findDistance = function (otherDancer) {
 };
 
 Dancer.prototype.findNearestNeighbor = function (dancers) {
-  var nearest;
+  var nearest = null;
   var self = this;
   var shortest = Infinity;
 
   _.each(dancers, function (dancer) {
     var distance = self.findDistance(dancer);
 
-    if ((distance < shortest) && (self !== dancer)){
+    if ((distance < shortest) && (self !== dancer) && (dancer.pair === null)) {
       nearest = dancer;
       shortest = distance;
     }
@@ -87,16 +88,31 @@ Dancer.prototype.findNearestNeighbor = function (dancers) {
   });
 
   return nearest;
-}
+};
 
-Dancer.prototype.pairUp = function () {
-  var nearest = this.findNearestNeighbor();
+Dancer.prototype.pairUp = function (dancers) {
+  if (this.pair === null) {
+    var nearest = this.findNearestNeighbor(dancers);
+    if (nearest === null) {
+      nearest = this;
+    }
+    this.pair = {};
+    this.pair.pointer = nearest;
+    nearest.pair = {};
+    nearest.pair.pointer = this;
+    nearest.pair.left = this.left;
+    nearest.pair.top = this.top;
+    this.pair.left = nearest.left;
+    this.pair.top = nearest.top;
+  }
+};
 
-  var centerX = (this.left + nearest.left)/2;
-  var centerY = (this.top + nearest.top)/2;
+Dancer.prototype.goToPair = function() {
+  var newLeft = (this.left + this.pair.left)/2;
+  var newTop = (this.top + this.pair.top)/2;
+  this.moveToPosition(newTop, newLeft);
+};
 
 
 
 
-
-}

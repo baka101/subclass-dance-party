@@ -133,20 +133,21 @@ describe("movingRainbowDancer", function() {
 
 describe("Dancer Interactions", function() {
 
+  var timeBetweenSteps = 100;
   var dancer1;
   var dancer2;
   var dancers = [];
+  dancer1 = new Dancer(100, 100, timeBetweenSteps);
+  dancer2 = new Dancer(200, 200, timeBetweenSteps);
 
-  var timeBetweenSteps = 100;
+  dancers.push(dancer1);
+  dancers.push(dancer2);
+
   var clock;
 
   beforeEach(function() {
     clock = sinon.useFakeTimers();
-    dancer1 = new Dancer(100, 100, timeBetweenSteps);
-    dancer2 = new Dancer(200, 200, timeBetweenSteps);
 
-    dancers.push(dancer1);
-    dancers.push(dancer2);
   });
 
   it("should have a jQuery $node object", function(){
@@ -158,7 +159,37 @@ describe("Dancer Interactions", function() {
   });
 
   it("should find its nearest neighbor", function() {
-    expect(dancer1.findNearestNeighbor(dancers)).to.be.deep.equal(dancer2);
+    expect(dancer1.findNearestNeighbor(dancers)).to.equal(dancer2);
+  });
+
+  it("should pair up if there are 2 dancers", function() {
+    dancer1.pairUp(dancers);
+    dancer2.pairUp(dancers);
+    dancer1.goToPair();
+    dancer2.goToPair();
+    expect(dancer1.top).to.be.equal(150);
+    expect(dancer1.left).to.be.equal(150);
+    expect(dancer2.top).to.be.equal(150);
+    expect(dancer2.left).to.be.equal(150);
+  });
+
+  it("should pair up if there are 4 dancers", function() {
+    dancers = [];
+    dancer1 = new Dancer(100, 100, timeBetweenSteps);
+    dancer2 = new Dancer(200, 200, timeBetweenSteps);
+    var dancer3 = new Dancer(190, 190, timeBetweenSteps);
+    var dancer4 = new Dancer(400, 400, timeBetweenSteps);
+    dancers.push(dancer1, dancer2, dancer3, dancer4);
+    _.each(dancers, function(dancer, index, allDancers) {
+      dancer.pairUp(allDancers);
+    });
+    _.each(dancers, function(dancer) {
+      dancer.goToPair();
+    });
+    expect(dancer1.top).to.be.equal(145);
+    expect(dancer3.top).to.be.equal(145);
+    expect(dancer2.top).to.be.equal(300);
+    expect(dancer4.top).to.be.equal(300);
   });
 
 });
