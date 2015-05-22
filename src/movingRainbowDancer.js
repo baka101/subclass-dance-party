@@ -31,8 +31,8 @@ MovingRainbowDancer.prototype.step = function () {
     this.xDirection = -1 * this.xDirection;
   }
 
-  // this.moveToPosition(this.top, this.left, this.timeBetweenSteps);
-  this.setPosition(this.top, this.left);
+  this.moveToPosition(this.top, this.left, this.timeBetweenSteps);
+  // this.setPosition(this.top, this.left);
 
 };
 
@@ -46,7 +46,7 @@ MovingRainbowDancer.prototype.beYourSelf = function() {
   this.stepSize = 10;
 }
 
-MovingRainbowDancer.prototype.pairUp = function() {
-  Dancer.prototype.pairUp.call(this);
+MovingRainbowDancer.prototype.pairUp = function(dancers) {
+  Dancer.prototype.pairUp.call(this, dancers);
   this.stepSize = 0;
 };
