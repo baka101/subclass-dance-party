@@ -31,7 +31,7 @@ MovingRainbowDancer.prototype.step = function () {
     this.xDirection = -1 * this.xDirection;
   }
 
-  this.moveToPosition(this.top, this.left, this.timeBetweenSteps);
+  this.moveToPosition(this.top, this.left, this.timeBetweenSteps-50);
   // this.setPosition(this.top, this.left);
 
 };
